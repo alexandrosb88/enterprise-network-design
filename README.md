@@ -26,4 +26,3 @@ and real-world networking practices, including:
 
 ## Network Topology
 
-
