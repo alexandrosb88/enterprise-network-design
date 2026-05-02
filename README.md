@@ -719,4 +719,16 @@ WLANs were configured through the Cisco GUI
 
 </details>
 
+## Notes
+<br />
+- Certain configurations such as WLAN setup, static IP addressing and DHCP Server configuration, were performed through the respective device GUIs rather than the CLI.
+
+## Usage
+<br />
+*You can download the packet tracer file [here](resource_files/network-topology.png)* 
+<br />
+To open the file, Cisco Packet Tracer needs to be installed.
+
+
+
 
