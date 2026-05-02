@@ -56,7 +56,7 @@ and real-world networking practices, including:
 
 <br />
 
-*You can download the packet tracer file [here](resource_files/network-topology.png)* 
+*You can download the packet tracer file [here](ab-enterprise-network-design.pkt)* 
 <br />
 <br />
 
@@ -771,7 +771,7 @@ do write memory
 - Certain configurations such as WLAN setup, static IP addressing and DHCP Server configuration, were performed through the respective device GUIs rather than the CLI.
 
 ## Usage
-You can download the packet tracer file [here](resource_files/network-topology.png)
+You can download the packet tracer file [here](ab-enterprise-network-design.pkt)
 
 To open the file, Cisco Packet Tracer needs to be installed on your PC.
 
