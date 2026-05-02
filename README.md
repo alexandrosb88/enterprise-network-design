@@ -137,14 +137,14 @@ Core Switch 1
 ```
 ip routing
 
-int g1/0/1
+interface g1/0/1
 no switchport
-no shut
+no shutdown
 ip address 10.2.2.1 255.255.255.252
 
-int g1/0/2
+interface g1/0/2
 no switchport
-no shut
+no shutdown
 ip address 10.2.2.5 255.255.255.252
 exit
 do write memory
@@ -153,14 +153,14 @@ Core Switch 2
 ```
 ip routing
 
-int g1/0/1
+interface g1/0/1
 no switchport
-no shut
+no shutdown
 ip address 10.2.2.13 255.255.255.252
 
-int g1/0/2
+interface g1/0/2
 no switchport
-no shut
+no shutdown
 ip address 10.2.2.9 255.255.255.252
 exit
 do write memory
@@ -182,9 +182,9 @@ do write memory
 
 ```
 
-int range f0/1 - 2
+interface range f0/1 - 2
 switchport mode trunk
-no shut
+no shutdown
 exit
 
 vlan 10
@@ -199,31 +199,31 @@ vlan 199
 name BLACKHOLE
 exit
 
-int range f0/3-4
+interface range f0/3-4
 switchport mode access
 switchport access vlan 20
-no shut
+no shutdown
 exit
 
-int range f0/5-6
+interface range f0/5-6
 switchport mode access
 switchport voice vlan 70
-no shut
+no shutdown
 exit
 
-int range f0/7
+interface f0/7
 switchport mode access
 switchport access vlan 50
-no shut
+no shutdown
 exit
 
-int range f0/8 - 24, gig0/1-2
+interface range f0/8 - 24, gig0/1-2
 switchport mode access
 switchport access vlan 199
-no shut
+no shutdown
 exit
 
-do wr
+do write memory
 
 
 > The same configuration is applied to the rest of the Access Switches - omitted for brevity ...
@@ -245,7 +245,7 @@ do wr
 ![server-farm-switch-1](resource_files/server-farm-switch-1.png)
 
 ```
-int range f0/1 - 2, f0/7
+interface range f0/1 - 2, f0/7
 switchport mode trunk
 exit
 
@@ -261,17 +261,17 @@ vlan 90
 name INSIDE-SERVERS
 exit
 
-int range f0/3-5
+interface range f0/3-5
 switchport mode access
 switchport access vlan 90
 exit
 
-int f0/6
+interface f0/6
 switchport mode access
 switchport access vlan 50
 exit
 
-do wr
+do write memory
 ```
 
 </details>
@@ -283,7 +283,7 @@ do wr
 <br />
 
 ```
-int range g1/0/3-8
+interface range g1/0/3-8
 switchport mode trunk
 exit
 
@@ -298,7 +298,7 @@ name VOIP
 vlan 90
 name INSIDE-SERVERS
 exit
-do wr
+do write memory
 ```
 
 </details>
@@ -312,21 +312,21 @@ between Core Switches</summary>
 
 Core Switch 1
 ```
-int range g1/0/9-11
+interface range g1/0/9-11
 channel-group 1 mode active
-int port-channel 1
+interface port-channel 1
 switchport mode trunk
 exit
-do wr
+do write memory
 ```
 Core Switch 2
 ```
-int range g1/0/9-11
+interface range g1/0/9-11
 channel-group 1 mode passive
-int port-channel 1
+interface port-channel 1
 switchport mode trunk
 exit
-do wr
+do write memory
 ```
 
 </details>
@@ -339,26 +339,26 @@ do wr
 
 Access Switches
 ```
-int range f0/3-24
+interface range f0/3-24
 spanning-tree portfast
 spanning-tree bpduguard enable
-do wr
+do write memory
 ```
 
 DMZ
 ```
-int range f0/1-24
+interface range f0/1-24
 spanning-tree portfast
 spanning-tree bpduguard enable
-do wr
+do write memory
 ```
 
 Server Farm Switch
 ```
-int range f0/3-6, f0/8-24
+interface range f0/3-6, f0/8-24
 spanning-tree portfast
 spanning-tree bpduguard enable
-do wr
+do write memory
 ```
 
 </details>
@@ -372,22 +372,22 @@ Redundancy & DHCP Helper Configuration</summary>
 
 Core Switch 1
 ```
-int vlan 10
+interface vlan 10
 ip address 192.168.10.3 255.255.255.0
 standby 10 ip 192.168.10.1
 ip helper-address 10.11.11.38
 
-int vlan 20
+interface vlan 20
 ip address 172.16.0.3 255.255.0.0
 standby 20 ip 172.16.0.1
 ip helper-address 10.11.11.38
 
-int vlan 50
+interface vlan 50
 ip address 10.20.0.2 255.255.0.0
 standby 50 ip 10.20.0.1
 ip helper-address 10.11.11.38
 
-int vlan 90
+interface vlan 90
 ip address 10.11.11.34 255.255.255.224
 standby 90 ip 10.11.11.33
 
@@ -397,27 +397,27 @@ do write memory
 
 Core Switch 2
 ```
-int vlan 10
+interface vlan 10
 ip address 192.168.10.2 255.255.255.0
 standby 10 ip 192.168.10.1
 ip helper-address 10.11.11.38
 
-int vlan 20
+interface vlan 20
 ip address 172.16.0.2 255.255.0.0
 standby 20 ip 172.16.0.1
 ip helper-address 10.11.11.38
 
-int vlan 50
+interface vlan 50
 ip address 10.20.0.3 255.255.0.0
 standby 50 ip 10.20.0.1
 ip helper-address 10.11.11.38
 
-int vlan 90
+interface vlan 90
 ip address 10.11.11.35 255.255.255.224
 standby 90 ip 10.11.11.33
 
 exit
-do wr
+do write memory
 ```
 
 </details>
@@ -440,7 +440,7 @@ network 172.16.0.0 0.0.255.255 area 0
 network 10.20.0.0 0.0.255.255 area 0
 network 10.11.11.32 0.0.0.31 area 0
 exit
-do wr
+do write memory
 ```
 Core Switch 2
 ```
@@ -453,7 +453,7 @@ network 172.16.0.0 0.0.255.255 area 0
 network 10.20.0.0 0.0.255.255 area 0
 network 10.11.11.32 0.0.0.31 area 0
 exit
-do wr
+do write memory
 ```
 
 </details>
@@ -473,7 +473,7 @@ network 105.100.50.0 0.0.0.3 area 0
 network 105.100.50.4 0.0.0.3 area 0
 network 20.20.20.0 0.0.0.3 area 0
 exit
-do wr
+do write memory
 ```
 <br />
 
@@ -485,7 +485,7 @@ Router(config-router)#network 197.200.100.4 0.0.0.3 area 0
 Router(config-router)#network 197.200.100.0 0.0.0.3 area 0
 Router(config-router)#network 30.30.30.0 0.0.0.3 area 0
 exit
-do wr
+do write memory
 ```
 <br />
 
@@ -496,8 +496,8 @@ router-id 1.1.5.5
 network 20.20.20.0 0.0.0.3 area 0
 network 30.30.30.0 0.0.0.3 area 0
 network 8.0.0.0 0.255.255.255 area 0
-ex
-do wr
+exit
+do write memory
 ```
 
 </details>
@@ -517,22 +517,21 @@ int g1/3
 ip address 10.2.2.14 255.255.255.252
 nameif INSIDE1
 security-level 100
-no shut
+no shutdown
 exit
 
 int g1/4
 ip address 10.2.2.6 255.255.255.252
 nameif INSIDE2
 security-level 0
-no shut
+no shutdown
 exit
 
 int g1/1
-no shut
 ip address 105.100.50.6 255.255.255.252
 nameif OUTSIDE1
 security-level 0
-no shut
+no shutdown
 exit
 
 FWL2(config)#int g1/2
@@ -540,7 +539,7 @@ ip address 197.200.100.6 255.255.255.252
 nameif OUTSIDE2
 security-level 0
 exit
-no shut
+no shutdown
 
 write memory
 
@@ -572,7 +571,7 @@ network 10.11.11.0 255.255.255.224 area 0
 network 10.2.2.0 255.255.255.252 area 0
 network 10.2.2.8 255.255.255.252 area 0
 exit
-wr mem
+write memory
 ```
 <br />
 
@@ -618,7 +617,6 @@ nat (INSIDE1, OUTSIDE1) dynamic interface
 object network INSIDE2wl-OUTSIDE1wl
 subnet 10.20.0.0 255.255.0.0
 nat (INSIDE2, OUTSIDE1) dynamic interface
-ex
 
 object network INSIDE1-OUTSIDE2
 subnet 172.16.0.0 255.255.0.0
@@ -635,7 +633,6 @@ nat (INSIDE1, OUTSIDE2) dynamic interface
 object network INSIDE2wl-OUTSIDE2wl
 subnet 10.20.0.0 255.255.0.0
 nat (INSIDE2, OUTSIDE2) dynamic interface
-ex
 
 object network DMZ-OUTSIDE1
 subnet 10.11.11.0 255.255.255.224
@@ -644,8 +641,8 @@ nat (DMZ,OUTSIDE1) dynamic interface
 object network DMZ-OUTSIDE2
 subnet 10.11.11.0 255.255.255.224
 nat (DMZ,OUTSIDE2) dynamic interface 
-ex
-wr mem
+
+write memory
 
 access-list RES extended permit icmp any any
 access-list RES extended permit tcp any any eq 80
@@ -663,36 +660,36 @@ Firewall 2
 
 ```
 object network INSIDE1-OUTSIDE1
- subnet 172.16.0.0 255.255.0.0
- nat (INSIDE1,OUTSIDE1) dynamic interface
+subnet 172.16.0.0 255.255.0.0
+nat (INSIDE1,OUTSIDE1) dynamic interface
  
 object network INSIDE1-OUTSIDE2
- subnet 172.16.0.0 255.255.0.0
- nat (INSIDE1,OUTSIDE2) dynamic interface
+subnet 172.16.0.0 255.255.0.0
+nat (INSIDE1,OUTSIDE2) dynamic interface
  
 object network INSIDE1wl-OUTSIDE1wl
- subnet 10.20.0.0 255.255.0.0
- nat (INSIDE1,OUTSIDE1) dynamic interface
+subnet 10.20.0.0 255.255.0.0
+nat (INSIDE1,OUTSIDE1) dynamic interface
  
 object network INSIDE1wl-OUTSIDE2wl
- subnet 10.20.0.0 255.255.0.0
- nat (INSIDE1,OUTSIDE2) dynamic interface
+subnet 10.20.0.0 255.255.0.0
+nat (INSIDE1,OUTSIDE2) dynamic interface
  
 object network INSIDE2-OUTSIDE1
- subnet 172.16.0.0 255.255.0.0
- nat (INSIDE2,OUTSIDE1) dynamic interface
+subnet 172.16.0.0 255.255.0.0
+nat (INSIDE2,OUTSIDE1) dynamic interface
  
 object network INSIDE2-OUTSIDE2
- subnet 172.16.0.0 255.255.0.0
- nat (INSIDE2,OUTSIDE2) dynamic interface
+subnet 172.16.0.0 255.255.0.0
+nat (INSIDE2,OUTSIDE2) dynamic interface
  
 object network INSIDE2wl-OUTSIDE1wl
- subnet 10.20.0.0 255.255.0.0
- nat (INSIDE2,OUTSIDE1) dynamic interface
+subnet 10.20.0.0 255.255.0.0
+nat (INSIDE2,OUTSIDE1) dynamic interface
  
 object network INSIDE2wl-OUTSIDE2wl
- subnet 10.20.0.0 255.255.0.0
- nat (INSIDE2,OUTSIDE2) dynamic interface
+subnet 10.20.0.0 255.255.0.0
+nat (INSIDE2,OUTSIDE2) dynamic interface
 
 access-list RES extended permit icmp any any
 access-list RES extended permit tcp any any eq 80
@@ -719,15 +716,68 @@ WLANs were configured through the Cisco GUI
 
 </details>
 
-## Notes
+<details>
+
+<summary>Voice Gateway & Cisco CME Telephony Configuration</summary>
 <br />
+<br />
+
+Cisco Voice Gateway Router
+
+```
+interface f0/0
+no shutdown
+
+interface f0/0.70
+encapsulation dot1q 70
+ip address 172.30.0.1 255.255.0.0
+exit
+
+service dhcp
+ip dhcp pool VOIP-POOL
+network 172.30.0.0 255.255.0.0
+default-router 172.30.0.1
+option 150 ip 172.30.0.1
+exit
+
+telephony-service
+max-ephone 30
+max-dn 30
+ip source-address 172.30.0.1 port 2000
+auto assign 1 to 30
+exit
+
+ephone-dn 1
+number 401
+exit
+
+ephone-dn 2
+number 402
+exit
+
+...
+
+ephone-dn 10
+number 410
+exit
+
+do write memory
+
+```
+
+</details>
+
+## Notes
 - Certain configurations such as WLAN setup, static IP addressing and DHCP Server configuration, were performed through the respective device GUIs rather than the CLI.
 
 ## Usage
-<br />
-*You can download the packet tracer file [here](resource_files/network-topology.png)* 
-<br />
-To open the file, Cisco Packet Tracer needs to be installed.
+You can download the packet tracer file [here](resource_files/network-topology.png)
+
+To open the file, Cisco Packet Tracer needs to be installed on your PC.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE). You are free to use, modify, and distribute this project as per the terms of the license.
 
 
 
