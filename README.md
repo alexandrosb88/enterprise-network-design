@@ -129,7 +129,7 @@ do write memory
 
 <details>
 
-<summary>IP Addressing and Subnetting</summary>
+<summary>IP Addressing Configuration</summary>
 
 <br />
 <br />
