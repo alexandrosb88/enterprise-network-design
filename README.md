@@ -15,6 +15,7 @@ entirely in Cisco Packet Tracer.
 The project incorporates a wide range of CCNA-level concepts 
 and real-world networking practices, including:
 
+- SSH remote access setup
 - Structured IP addressing scheme
 - VLAN segmentation for Data, Voice, Wireless, DMZ and Management traffic.
 - Static and dynamic (DHCP) addressing
