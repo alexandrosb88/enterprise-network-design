@@ -283,6 +283,7 @@ do write memory
 <br />
 <br />
 
+Core Switch 1
 ```
 interface range g1/0/3-8
 switchport mode trunk
@@ -300,6 +301,9 @@ vlan 90
 name INSIDE-SERVERS
 exit
 do write memory
+
+
+> The same configuration applies to Core Switch 2
 ```
 
 </details>
